@@ -25,6 +25,8 @@ export default function Login() {
         Back
       </Link>
 
+      <a href="/auth/social/google" className='text-foreground'>SignInWithGoogle</a>
+
       <form
         className="flex-1 flex flex-col w-full justify-center gap-2 text-foreground"
         action="/auth/sign-in"
