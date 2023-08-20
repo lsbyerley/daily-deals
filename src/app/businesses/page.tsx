@@ -1,8 +1,8 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
-
 import type { Database } from '@/db_types'
 
+export const dynamic = 'force-dynamic'
 interface BusinessesPageProps {
   params: Object,
   searchParams: {
@@ -11,8 +11,6 @@ interface BusinessesPageProps {
     region: String,
   },
 }
-
-export const dynamic = 'force-dynamic'
 
 export default async function Businesses({ searchParams }: BusinessesPageProps) {
   const city = searchParams.city;

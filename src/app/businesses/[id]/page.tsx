@@ -1,15 +1,14 @@
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
-
 import type { Database } from '@/db_types'
+
+export const dynamic = 'force-dynamic'
 
 interface DealsPageProps {
   params: {
     id: Number
   }
 }
-
-export const dynamic = 'force-dynamic'
 
 export default async function BusinessDeals({ params }: DealsPageProps) {
   const businessId = params?.id;
