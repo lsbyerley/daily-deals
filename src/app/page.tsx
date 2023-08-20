@@ -30,7 +30,7 @@ export default async function Index({ searchParams }: DealsPageProps) {
     .eq('businesses.state', region);
 
   const todayDeals =
-    deals?.filter((deal) => deal.type === 'daily' && deal.day === today) || [];
+    deals?.filter((deal) => deal.type === 'daily' && deal.day?.includes(today)) || [];
   const everydayDeals = deals?.filter((deal) => deal.type === 'everyday') || [];
 
   return (
