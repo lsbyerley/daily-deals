@@ -17,7 +17,7 @@ export default async function Header() {
         <Link href='/' className='text-foreground'>
           Home
         </Link>
-        <Link href='/deals' className='text-foreground'>
+        {/*<Link href='/deals' className='text-foreground'>
           Deals
         </Link>
         <Link href='/admin' className='text-foreground'>
@@ -25,7 +25,7 @@ export default async function Header() {
         </Link>
         <Link href='/businesses' className='text-foreground'>
           Businesses
-        </Link>
+        </Link>*/}
         <div>
           {user ? (
             <div className='flex items-center gap-4'>
@@ -33,12 +33,7 @@ export default async function Header() {
               <LogoutButton />
             </div>
           ) : (
-            <Link
-              href='/login'
-              className='py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover'
-            >
-              Login
-            </Link>
+            <a href="/auth/social/google" className='text-foreground'>Sign In</a>
           )}
         </div>
       </div>
