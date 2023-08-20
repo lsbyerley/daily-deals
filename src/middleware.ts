@@ -11,9 +11,13 @@ export async function middleware(req: NextRequest) {
   const country = geo?.country || 'na';
   const region = geo?.region || 'North Carolina';
 
+  let usingDefaultGeo = 'false';
+  if (!geo) usingDefaultGeo = 'true';
+
   url.searchParams.set('city', city)
   url.searchParams.set('country', country)
   url.searchParams.set('region', region)
+  url.searchParams.set('usingDefaultGeo', usingDefaultGeo)
 
   console.log('LOG: middleware searchParams', url.searchParams);
 
