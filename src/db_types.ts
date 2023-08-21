@@ -17,7 +17,7 @@ export interface Database {
           gps_long: number | null
           id: number
           name: string
-          state: string
+          region: string
           street: string | null
           type: string
           website: string | null
@@ -30,7 +30,7 @@ export interface Database {
           gps_long?: number | null
           id?: number
           name: string
-          state: string
+          region: string
           street?: string | null
           type: string
           website?: string | null
@@ -43,7 +43,7 @@ export interface Database {
           gps_long?: number | null
           id?: number
           name?: string
-          state?: string
+          region?: string
           street?: string | null
           type?: string
           website?: string | null

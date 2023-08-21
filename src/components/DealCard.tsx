@@ -12,22 +12,25 @@ import { format } from 'date-fns';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-const DealCard = (props: any) => {
+import { DealCardProps } from '@/types';
+
+const DealCard = (props: DealCardProps) => {
   const { description, type, businesses, time_start, time_end } = props;
+  const dealType = type === 'happyhour' ? 'Happy Hour' : '';
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{businesses?.name}</CardTitle>
-        <CardDescription>{type}</CardDescription>
+        <CardTitle className='text-lg text-center'>{businesses?.name}</CardTitle>
+        <CardDescription>{dealType}</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className='prose prose-sm'>
+        <div className='prose'>
           <ReactMarkdown children={description} rehypePlugins={[remarkGfm]} />
         </div>
       </CardContent>
-      <CardFooter>
+      <CardFooter className='justify-center'>
         {time_start && (
-          <p>
+          <p className='text-foreground'>
             Starts @ {format(new Date(`2023-08-12T${time_start}`), 'h:mm aaa')}
           </p>
         )}

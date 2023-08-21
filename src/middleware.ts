@@ -8,25 +8,27 @@ export async function middleware(req: NextRequest) {
 
   const { nextUrl: url, geo } = req
   const city = geo?.city || 'Charlotte';
-  const country = geo?.country || 'na';
-  const region = geo?.region || 'North Carolina';
+  const region = geo?.region || 'NC';
+  const country = geo?.country || 'US';
 
   let usingDefaultGeo = 'false';
-  if (!geo) usingDefaultGeo = 'true';
+  if (!geo?.city) usingDefaultGeo = 'true';
 
   url.searchParams.set('city', city)
-  url.searchParams.set('country', country)
   url.searchParams.set('region', region)
+  url.searchParams.set('country', country)
   url.searchParams.set('usingDefaultGeo', usingDefaultGeo)
-
-  console.log('LOG: middleware searchParams', url.searchParams);
 
   // Create a Supabase client configured to use cookies
   const supabase = createMiddlewareClient({ req, res })
 
   // Refresh session if expired - required for Server Components
   // https://supabase.com/docs/guides/auth/auth-helpers/nextjs#managing-session-with-middleware
-  await supabase.auth.getSession()
+  try {
+    await supabase.auth.getSession()
+  } catch(err) {
+    console.log('LOG: middleware supabase session error');
+  }
 
   return NextResponse.rewrite(url)
 }

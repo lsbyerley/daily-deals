@@ -3,20 +3,12 @@ import { cookies } from 'next/headers';
 import DealCard from '@/components/DealCard';
 
 import type { Database } from '@/db_types';
-export type Deal = Database['public']['Tables']['deals']['Row'];
-
-interface DealsPageProps {
-  params: Object;
-  searchParams: {
-    city: String;
-    country: String;
-    region: String;
-  };
-}
+import { IndexPageProps } from '@/types';
 
 export const dynamic = 'force-dynamic';
 
-export default async function Index({ searchParams }: DealsPageProps) {
+export default async function Index({ searchParams }: IndexPageProps) {
+  console.log('LOG: index searchParams', searchParams);
   const today = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(
     new Date()
   );
@@ -25,9 +17,9 @@ export default async function Index({ searchParams }: DealsPageProps) {
   const supabase = createServerComponentClient<Database>({ cookies });
   const { data: deals } = await supabase
     .from('deals')
-    .select('*, businesses(*)')
-    .eq('businesses.city', city)
-    .eq('businesses.state', region);
+    .select('*, businesses!inner(*)')
+    .eq('businesses.region', region)
+    .eq('businesses.city', city);
 
   const todayDeals =
     deals?.filter((deal) => deal.type === 'daily' && deal.day?.includes(today)) || [];
@@ -36,14 +28,14 @@ export default async function Index({ searchParams }: DealsPageProps) {
   return (
     <div className='w-full flex flex-col items-center'>
       <div className='animate-in flex flex-col gap-14 opacity-0 max-w-7xl px-3 py-16 lg:py-24 text-foreground'>
-        <h2 className='text-center text-foreground font-bold text-xl'>
+        <h2 className='text-center text-foreground font-bold text-3xl'>
           {city}, {region}
         </h2>
 
         <div className='w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent' />
 
         <div className='flex flex-col gap-8 text-foreground'>
-          <h2 className='text-lg font-bold text-center'>{today} Deals</h2>
+          <h2 className='text-2xl font-bold text-center'>{today} Deals</h2>
           {todayDeals.length > 0 && (
             <div className='grid grid-cols-1 lg:grid-cols-3 gap-4'>
               {todayDeals.map((deal) => (
@@ -59,7 +51,7 @@ export default async function Index({ searchParams }: DealsPageProps) {
         </div>
 
         <div className='flex flex-col gap-8 text-foreground'>
-          <h2 className='text-lg font-bold text-center'>Everday Deals</h2>
+          <h2 className='text-2xl font-bold text-center'>Everday Deals</h2>
           {everydayDeals.length > 0 && (
             <div className='grid grid-cols-1 lg:grid-cols-3 gap-4'>
               {everydayDeals?.map((deal) => (
