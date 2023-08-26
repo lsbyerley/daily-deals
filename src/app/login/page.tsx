@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { Icons } from '@/components/icons';
 
 export const dynamic = 'force-dynamic';
 
@@ -13,10 +14,17 @@ const Login = () => {
             Easily sign in with one of your accounts
           </p>
         </div>
-        <div className='flex items-center justify-center'>
+        <div className='flex items-center justify-center gap-4'>
           <Link href='/auth/social/google' passHref legacyBehavior>
             <Button variant='outline' type='button'>
+              <Icons.google className="mr-2 h-4 w-4" />
               Google
+            </Button>
+          </Link>
+          <Link href='/auth/social/github' passHref legacyBehavior>
+            <Button variant='outline' type='button'>
+              <Icons.gitHub className="mr-2 h-4 w-4" />
+              Github
             </Button>
           </Link>
         </div>
