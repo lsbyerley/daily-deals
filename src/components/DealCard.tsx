@@ -24,7 +24,7 @@ const DealCard = (props: DealCardProps) => {
         <CardDescription>{dealType}</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className='prose'>
+        <div className='prose text-foreground'>
           <ReactMarkdown children={description} rehypePlugins={[remarkGfm]} />
         </div>
       </CardContent>

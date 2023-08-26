@@ -1,6 +1,9 @@
 import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs'
 import { NextResponse } from 'next/server'
 
+// https://github.com/vercel/next.js/issues/49373
+// https://github.com/supabase-community/vercel-ai-chatbot/pull/8/files#diff-260a7990e7e5b9393ce53e9928522be628b30cd9b8b2a41d31736aa33bce4edd
+
 import type { NextRequest } from 'next/server'
 
 export async function middleware(req: NextRequest) {

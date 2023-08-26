@@ -39,7 +39,7 @@ export default async function Index({ searchParams }: IndexPageProps) {
           {todayDeals.length > 0 && (
             <div className='grid grid-cols-1 lg:grid-cols-3 gap-4'>
               {todayDeals.map((deal) => (
-                <DealCard {...deal} />
+                <DealCard key={deal.id} {...deal} />
               ))}
             </div>
           )}
@@ -55,7 +55,7 @@ export default async function Index({ searchParams }: IndexPageProps) {
           {everydayDeals.length > 0 && (
             <div className='grid grid-cols-1 lg:grid-cols-3 gap-4'>
               {everydayDeals?.map((deal) => (
-                <DealCard {...deal} />
+                <DealCard key={deal.id} {...deal} />
               ))}
             </div>
           )}

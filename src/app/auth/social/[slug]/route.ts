@@ -22,7 +22,8 @@ export async function GET(
   }
 
   if (provider) {
-    const supabase = createRouteHandlerClient({ cookies });
+    const cookieStore = cookies();
+    const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider,
       options,

@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { cookies } from 'next/headers';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import LogoutButton from '@/components/LogoutButton';
+import { ModeToggle } from './ModeToggle';
 
 export default async function Header() {
   const supabase = createServerComponentClient({ cookies });
@@ -33,9 +34,12 @@ export default async function Header() {
               <LogoutButton />
             </div>
           ) : (
-            <a href="/auth/social/google" className='text-foreground'>Sign In</a>
+            <Link href='/login' className='text-foreground'>
+              Login
+            </Link>
           )}
         </div>
+        <ModeToggle />
       </div>
     </nav>
   );

@@ -1,6 +1,7 @@
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { ThemeProvider } from '@/components/ThemeProvider';
 
 export const metadata = {
   title: 'Daily Deals',
@@ -15,11 +16,13 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body>
-        <Header />
-        <main className='min-h-screen bg-background flex flex-col items-center'>
-          {children}
-        </main>
-        <Footer />
+        <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
+          <Header />
+          <main className='min-h-screen flex flex-col items-center'>
+            {children}
+          </main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
