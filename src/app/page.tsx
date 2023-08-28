@@ -3,6 +3,8 @@ import { cookies } from 'next/headers';
 import DealCard from '@/components/DealCard';
 import LocationDialog from '@/components/LocationDialog';
 import { Frown } from 'lucide-react';
+// import { utcToZonedTime } from 'date-fns-tz';
+import { format } from 'date-fns'
 
 import type { Database } from '@/db_types';
 import { IndexPageProps } from '@/types';
@@ -10,10 +12,7 @@ import { IndexPageProps } from '@/types';
 export const dynamic = 'force-dynamic';
 
 export default async function Index({ searchParams }: IndexPageProps) {
-  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'America/New_York';
-  const today = new Intl.DateTimeFormat('en-US', { timeZone, weekday: 'long' }).format(
-    new Date()
-  );
+  const today = format(new Date(), 'EEEE')
   const city = searchParams.city;
   const region = searchParams.region;
   const supabase = createServerComponentClient<Database>({ cookies });
