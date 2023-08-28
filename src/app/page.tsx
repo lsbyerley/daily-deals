@@ -10,7 +10,8 @@ import { IndexPageProps } from '@/types';
 export const dynamic = 'force-dynamic';
 
 export default async function Index({ searchParams }: IndexPageProps) {
-  const today = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(
+  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'America/New_York';
+  const today = new Intl.DateTimeFormat('en-US', { timeZone, weekday: 'long' }).format(
     new Date()
   );
   const city = searchParams.city;
