@@ -1,3 +1,4 @@
+import { redirect } from 'next/navigation'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import DealCard from '@/components/DealCard';
@@ -5,16 +6,24 @@ import LocationDialog from '@/components/LocationDialog';
 import { Frown } from 'lucide-react';
 
 import type { Database } from '@/db_types';
-import { IndexPageProps } from '@/types';
+import { GeoPageProps } from '@/types';
 
 export const dynamic = 'force-dynamic';
 
-export default async function Index({ searchParams }: IndexPageProps) {
+export default async function GeoLocation({ params }: GeoPageProps) {
   const today = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(
     new Date()
   );
-  const city = searchParams.city;
-  const region = searchParams.region;
+  const geo = params?.geo[0];
+  // TODO: handle geo check better
+  if (!geo) {
+    redirect('/');
+  }
+
+  const geoParams = geo.split('.') || null;
+  const city = geoParams[0]?.replace('-', ' ');
+  const region = geoParams[1];
+  const country = geoParams[2]
   const supabase = createServerComponentClient<Database>({ cookies });
   const { data: deals } = await supabase
     .from('deals')

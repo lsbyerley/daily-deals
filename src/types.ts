@@ -13,6 +13,12 @@ export interface IndexPageProps {
   };
 }
 
+export interface GeoPageProps {
+  params: {
+    geo: string
+  }
+}
+
 export interface DealCardProps extends Deal {
   businesses: Business | null
 }
