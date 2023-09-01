@@ -1,6 +1,5 @@
 'use client';
 
-import { useRef, useEffect, useState } from "react"
 import DealCard from '@/components/DealCard';
 import { Frown } from 'lucide-react';
 import { format } from 'date-fns-tz';
@@ -9,14 +8,7 @@ import { DealModuleProps } from '@/types';
 
 export default function DealModule(props: DealModuleProps) {
   const { deals = [] } = props;
-  const [today, setToday] = useState<string>();
-  const test = format(new Date(), "yyyy-MM-dd h:m z");
-
-  useEffect(() => {
-    setToday(format(new Date(), 'EEEE'));
-  }, [])
-
-  if (!today) return null;
+  const today = format(new Date(), 'EEEE');
 
   const todayDeals = deals?.filter(
     (deal) => deal.type === 'daily' && deal.day?.includes(today)
@@ -27,11 +19,6 @@ export default function DealModule(props: DealModuleProps) {
   return (
     <>
       <div className='flex flex-col gap-8 text-foreground'>
-        <p className='hidden'>{test}</p>
-        <p className='hidden'>{format(new Date(), "EEEE")}</p>
-        <p className='hidden'>{format(new Date(), "yyyy-MM-dd h:m O")}</p>
-        <p className='hidden'>{format(new Date(), "ppp")}</p>
-        <p className='hidden'>{format(new Date(), "pppp")}</p>
         <h2 className='text-2xl font-bold text-center'>{today} Deals</h2>
         {todayDeals.length > 0 && (
           <div className='grid grid-cols-1 lg:grid-cols-3 gap-4'>
