@@ -19,6 +19,10 @@ export interface GeoPageProps {
   }
 }
 
-export interface DealCardProps extends Deal {
+export interface DealWithBusiness extends Deal {
   businesses: Business | null
+}
+
+export interface DealModuleProps {
+  deals: DealWithBusiness[] | null
 }
