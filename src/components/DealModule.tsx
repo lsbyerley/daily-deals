@@ -28,6 +28,7 @@ export default function DealModule(props: DealModuleProps) {
     <>
       <div className='flex flex-col gap-8 text-foreground'>
         <p className='hidden'>{test}</p>
+        <p className='hidden'>{format(new Date(), "EEEE")}</p>
         <p className='hidden'>{format(new Date(), "yyyy-MM-dd h:m O")}</p>
         <p className='hidden'>{format(new Date(), "ppp")}</p>
         <p className='hidden'>{format(new Date(), "pppp")}</p>
