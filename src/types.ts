@@ -13,7 +13,7 @@ export interface IndexPageProps {
   };
 }
 
-export interface GeoPageProps {
+export interface CityPageProps {
   params: {
     geo: string
   }
