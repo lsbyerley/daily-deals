@@ -13,9 +13,9 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { cn } from '@/lib/utils';
 
-import { DealCardProps } from '@/types';
+import { DealWithBusiness } from '@/types';
 
-const DealCard = (props: DealCardProps) => {
+const DealCard = (props: DealWithBusiness) => {
   const { description, businesses, time_start, time_end } = props;
 
   return (
