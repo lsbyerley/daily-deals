@@ -6,15 +6,19 @@ import { format } from 'date-fns-tz';
 
 import { DealModuleProps } from '@/types';
 
+// TODO: hydration error in this component in prod
+
 export default function DealModule(props: DealModuleProps) {
   const { deals = [] } = props;
   const today = format(new Date(), 'EEEE');
 
-  const todayDeals = deals?.filter(
-    (deal) => deal.type === 'daily' && deal.day?.includes(today)
-  ) || [];
+  const todayDeals =
+    deals?.filter(
+      (deal) => deal.type === 'daily' && deal.day?.includes(today)
+    ) || [];
   const everydayDeals = deals?.filter((deal) => deal.type === 'everyday') || [];
-  const happyHourDeals = deals?.filter((deal) => deal.type === 'happyhour') || [];
+  const happyHourDeals =
+    deals?.filter((deal) => deal.type === 'happyhour') || [];
 
   return (
     <>
