@@ -4,7 +4,7 @@ import LocationDialog from '@/components/LocationDialog';
 
 import type { Database } from '@/db_types';
 import { IndexPageProps } from '@/types';
-import DealModule from '@/components/DealModule';
+// import DealModule from '@/components/DealModule';
 
 export const dynamic = 'force-dynamic';
 
@@ -29,7 +29,6 @@ export default async function Index({ searchParams }: IndexPageProps) {
         </div>
 
         <div className='w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent' />
-        <DealModule deals={deals} />
       </div>
     </div>
   );
