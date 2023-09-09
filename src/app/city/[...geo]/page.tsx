@@ -16,7 +16,8 @@ export default async function CityPage({ params }: CityPageProps) {
     redirect('/');
   }
 
-  const { city, region } = normalizeGeo(geo);
+  const normalizedGeo = normalizeGeo(geo);
+  const { city, region } = normalizedGeo;
   const supabase = createServerComponentClient<Database>({ cookies });
   const { data: deals } = await supabase
     .from('deals')
@@ -31,7 +32,7 @@ export default async function CityPage({ params }: CityPageProps) {
           <h2 className='text-center text-foreground font-bold text-3xl'>
             {city}, {region}
           </h2>
-          <LocationDialog />
+          <LocationDialog {...normalizedGeo} />
         </div>
 
         <div className='w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent' />

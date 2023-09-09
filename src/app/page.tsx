@@ -25,7 +25,7 @@ export default async function Index({ searchParams }: IndexPageProps) {
           <h2 className='text-center text-foreground font-bold text-3xl'>
             {city}, {region}
           </h2>
-          <LocationDialog />
+          <LocationDialog {...searchParams} />
         </div>
 
         <div className='w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent' />

@@ -11,7 +11,7 @@ export function capitalizeFirst(str: string) {
 }
 
 export function normalizeGeo(geo: string) {
-  let valid = true;
+  let usingDefaultGeo = false;
 
   // TODO: handle geo check better
   const geoParams = geo.split('.');
@@ -31,9 +31,9 @@ export function normalizeGeo(geo: string) {
   const country = geoParams[2]?.toUpperCase()
 
   return {
-    valid,
     city,
     region,
     country,
+    usingDefaultGeo,
   }
 }

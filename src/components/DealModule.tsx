@@ -30,7 +30,7 @@ export default function DealModule(props: DealModuleProps) {
         {todayDeals.length == 0 && (
           <div className='text-foreground text-center'>
             <p className='inline-flex items-center justify-center'>
-              No {today} only deals <Frown className='ml-2' />
+              No {today} deals found in this city <Frown className='ml-2' />
             </p>
           </div>
         )}
@@ -48,7 +48,7 @@ export default function DealModule(props: DealModuleProps) {
         {happyHourDeals.length == 0 && (
           <div className='text-foreground text-center'>
             <p className='inline-flex items-center justify-center'>
-              No happy hour deals <Frown className='ml-2' />
+              No happy hour deals found in this city <Frown className='ml-2' />
             </p>
           </div>
         )}
@@ -66,7 +66,7 @@ export default function DealModule(props: DealModuleProps) {
         {everydayDeals.length == 0 && (
           <div className='text-foreground text-center'>
             <p className='inline-flex items-center justify-center'>
-              No every day deals found in your city <Frown className='ml-2' />
+              No every day deals found in this city <Frown className='ml-2' />
             </p>
           </div>
         )}

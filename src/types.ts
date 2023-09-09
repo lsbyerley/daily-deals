@@ -13,16 +13,23 @@ export interface IndexPageProps {
   };
 }
 
+export interface DialogProps {
+  city: String;
+  region: String;
+  country: String;
+  usingDefaultGeo: Boolean;
+}
+
 export interface CityPageProps {
   params: {
-    geo: string
-  }
+    geo: string;
+  };
 }
 
 export interface DealWithBusiness extends Deal {
-  businesses: Business | null
+  businesses: Business | null;
 }
 
 export interface DealModuleProps {
-  deals: DealWithBusiness[] | null
+  deals: DealWithBusiness[] | null;
 }
