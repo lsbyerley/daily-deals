@@ -29,7 +29,7 @@ export default function DealModule(props: DealModuleProps) {
     deals?.filter((deal) => deal.type === 'happyhour') || [];
 
   return (
-    <div className='animate-in'>
+    <div className='flex flex-col gap-14 animate-in'>
       <div className='flex flex-col gap-8 text-foreground'>
         <h2 className='text-2xl font-bold text-center'>{today} Deals</h2>
         {todayDeals.length > 0 && (
