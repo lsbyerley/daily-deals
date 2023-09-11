@@ -7,13 +7,11 @@ import { format } from 'date-fns-tz';
 
 import { DealModuleProps } from '@/types';
 
-// TODO: hydration error in this component in prod
-
 export default function DealModule(props: DealModuleProps) {
   const { deals = [] } = props;
-  // const today = format(new Date(), 'EEEE');
   const [today, setToday] = useState<string>();
 
+  // effect used to fix hydration error when setting the day
   useEffect(() => {
     setToday(format(new Date(), 'EEEE'));
   }, []);
