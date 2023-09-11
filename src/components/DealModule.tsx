@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import DealCard from '@/components/DealCard';
 import { Frown } from 'lucide-react';
 import { format } from 'date-fns-tz';
@@ -10,7 +11,14 @@ import { DealModuleProps } from '@/types';
 
 export default function DealModule(props: DealModuleProps) {
   const { deals = [] } = props;
-  const today = format(new Date(), 'EEEE');
+  // const today = format(new Date(), 'EEEE');
+  const [today, setToday] = useState<string>();
+
+  useEffect(() => {
+    setToday(format(new Date(), 'EEEE'));
+  }, []);
+
+  if (!today) return null;
 
   const todayDeals =
     deals?.filter(
@@ -21,7 +29,7 @@ export default function DealModule(props: DealModuleProps) {
     deals?.filter((deal) => deal.type === 'happyhour') || [];
 
   return (
-    <>
+    <div className='animate-in'>
       <div className='flex flex-col gap-8 text-foreground'>
         <h2 className='text-2xl font-bold text-center'>{today} Deals</h2>
         {todayDeals.length > 0 && (
@@ -75,6 +83,6 @@ export default function DealModule(props: DealModuleProps) {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 }
