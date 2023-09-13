@@ -8,14 +8,19 @@ import type { NextRequest } from 'next/server'
 
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next()
-
   const { nextUrl: url, geo = {} } = req
-  const city = geo?.city || 'Charlotte';
-  const region = geo?.region || 'NC';
-  const country = geo?.country || 'US';
+  
+  let city = 'Charlotte';
+  let region = 'NC';
+  let country = 'US';
+  let usingDefaultGeo = 'true';
 
-  let usingDefaultGeo = 'false';
-  if (!Object.keys(geo).length) usingDefaultGeo = 'true';
+  if (geo?.city && geo?.region && geo?.country) {
+    city = geo.city;
+    region = geo.region;
+    country = geo.country;
+    usingDefaultGeo = 'false'
+  }
 
   url.searchParams.set('city', city)
   url.searchParams.set('region', region)
