@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "update-types": "npx supabase gen types typescript --project-id \"$PROJECT_REF\" > src/db_types.ts"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "1.0.4",

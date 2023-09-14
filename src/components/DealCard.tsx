@@ -11,18 +11,22 @@ import {
 import { format } from 'date-fns';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { Wine, Utensils } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 import { DealWithBusiness } from '@/types';
 
 const DealCard = (props: DealWithBusiness) => {
-  const { description, businesses, time_start, time_end } = props;
+  const { description, businesses, time_start, time_end, category } = props;
+  // TODO: spacing in flex card header is applied to absolute positioned icon (food)
 
   return (
-    <Card className='grid grid-rows-stickyfooter'>
+    <Card className='grid grid-rows-stickyfooter relative'>
       <CardHeader>
+        {category?.includes('drink') && <Wine size={20} className='absolute top-0 left-1 mt-1' />}
         <CardTitle className='text-lg text-center'>{businesses?.name}</CardTitle>
         <CardDescription className='text-center'></CardDescription>
+        {category?.includes('food') && <Utensils size={20} className='absolute top-0 right-2' />}
       </CardHeader>
       <CardContent>
         <div className='prose text-foreground'>

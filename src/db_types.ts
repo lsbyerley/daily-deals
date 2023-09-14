@@ -54,6 +54,7 @@ export interface Database {
       deals: {
         Row: {
           business: number
+          category: string | null
           created_at: string
           day: string | null
           description: string
@@ -64,6 +65,7 @@ export interface Database {
         }
         Insert: {
           business: number
+          category?: string | null
           created_at?: string
           day?: string | null
           description: string
@@ -74,6 +76,7 @@ export interface Database {
         }
         Update: {
           business?: number
+          category?: string | null
           created_at?: string
           day?: string | null
           description?: string
