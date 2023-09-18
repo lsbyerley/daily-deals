@@ -8,6 +8,7 @@ import {
 } from '@/components/ui/dialog';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { LocateFixed } from 'lucide-react';
 import { DialogProps } from '@/types';
 
@@ -23,10 +24,23 @@ export default async function LocationDialog(props: DialogProps) {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>View another location?</DialogTitle>
-          <DialogDescription>
-            <span className='block'>This action is currently a work in progress. Check back soon!</span>
-            <span className='block'>Current Geo: {JSON.stringify(props, null, ' ')}</span>
-            <Link className='block' href='/city/johnson-city.tn.us'>Example City Link</Link>
+          <DialogDescription asChild>
+            <div className='relative'>
+              <span className='block'>
+                This action is currently a work in progress. Check back soon!
+              </span>
+              <span className='block mt-4'>
+                Current Geo: {JSON.stringify(props, null, ' ')}
+              </span>
+              <Link className='block mt-4' href='/city/johnson-city.tn.us'>
+                Example City Link
+              </Link>
+              <Input
+                type='text'
+                placeholder='Search by city (non-functional)'
+                className='mt-4'
+              />
+            </div>
           </DialogDescription>
         </DialogHeader>
       </DialogContent>
