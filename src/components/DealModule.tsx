@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import DealCard from '@/components/DealCard';
 import { Frown } from 'lucide-react';
 import { format } from 'date-fns-tz';
+// import { isActiveDealTime } from '@/lib/utils';
 
 import { DealModuleProps } from '@/types';
 
@@ -18,6 +19,7 @@ export default function DealModule(props: DealModuleProps) {
 
   if (!today) return null;
 
+  // TODO: Add filter on active deal time?
   const todayDeals =
     deals?.filter(
       (deal) => deal.type === 'daily' && deal.day?.includes(today)
