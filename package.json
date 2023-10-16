@@ -23,7 +23,7 @@
     "date-fns": "2.30.0",
     "date-fns-tz": "2.0.0",
     "lucide-react": "0.287.0",
-    "next": "13.5.4",
+    "next": "13.4.19",
     "next-themes": "0.2.1",
     "postcss": "8.4.31",
     "react": "18.2.0",
