@@ -27,27 +27,49 @@ const DealCard = (deal: DealWithBusiness) => {
     <Card className='grid grid-rows-stickyfooter relative'>
       <span className='hidden'>istimeactive {`${isActiveDeal}`}</span>
       <CardHeader>
-        {category?.includes('drink') && <Wine size={20} className='absolute top-0 left-1 mt-1' />}
-        <CardTitle className='text-lg text-center'>{businesses?.name}</CardTitle>
+        {category?.includes('drink') && (
+          <Wine size={20} className='absolute top-0 left-1 mt-1' />
+        )}
+        <CardTitle className='text-lg text-center'>
+          {businesses?.website ? (
+            <a
+              className='hover:underline'
+              href={businesses.website}
+              target='_blank'
+              rel='noreferrer nofollow'
+            >
+              {businesses?.name}
+            </a>
+          ) : (
+            businesses?.name
+          )}
+        </CardTitle>
         <CardDescription className='text-center'></CardDescription>
-        {category?.includes('food') && <Utensils size={20} className='absolute top-0 right-2' />}
+        {category?.includes('food') && (
+          <Utensils size={20} className='absolute top-0 right-2' />
+        )}
       </CardHeader>
       <CardContent>
         <div className='prose text-foreground'>
           <ReactMarkdown children={description} rehypePlugins={[remarkGfm]} />
         </div>
       </CardContent>
-      <CardFooter className={cn(
-        'text-sm text-muted-foreground',
-        time_start && time_end ? 'justify-between' : 'justify-center'
-      )}>
+      <CardFooter
+        className={cn(
+          'text-sm text-muted-foreground',
+          time_start && time_end ? 'justify-between' : 'justify-center'
+        )}
+      >
         {time_start && (
           <p>
-            Starts {format(new Date(`${todayString}T${time_start}`), 'h:mm aaa')}
+            Starts{' '}
+            {format(new Date(`${todayString}T${time_start}`), 'h:mm aaa')}
           </p>
         )}
         {time_end && (
-          <p>Ends {format(new Date(`${todayString}T${time_end}`), 'h:mm aaa')}</p>
+          <p>
+            Ends {format(new Date(`${todayString}T${time_end}`), 'h:mm aaa')}
+          </p>
         )}
       </CardFooter>
     </Card>
