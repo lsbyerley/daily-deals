@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge';
 import { isAfter, isBefore } from 'date-fns';
 import { format } from 'date-fns-tz';
 
-import { DealWithBusiness } from '@/types';
+import { DealWithBusiness, Feature, FeatureContext } from '@/types';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -37,16 +37,30 @@ export const isActiveDealTime = (deal: DealWithBusiness): Boolean => {
   return true;
 };
 
+// normalizes a mapbox feature into geo
+export function normalizeGeoFromMB(geo: Feature) {
+  const { context, text } = geo;
+  const city = text;
+  const regionContext = context.find((c: FeatureContext) => c.id.includes('region'));
+  const region = regionContext?.short_code?.split('-')[1];
+  const country = regionContext?.short_code?.split('-')[0];
+
+  return {
+    city,
+    region,
+    country,
+  };
+}
+
+// normalizes a geo string ie. City,%20REGION,%20COUNTRY
 export function normalizeGeo(geo: string) {
   let usingDefaultGeo = false;
-
-  // TODO: handle geo check better
-  const geoParams = geo.split('.');
+  const geoParams = decodeURI(geo).replaceAll('%2C', ',').split(',');
 
   let city = geoParams[0];
-  if (city.split('-').length > 1) {
+  if (city.split(' ').length > 1) {
     let cs = '';
-    city.split('-').forEach((c) => {
+    city.split(' ').forEach((c: string) => {
       cs += capitalizeFirst(c) + ' ';
     });
     city = cs.trim();
@@ -54,8 +68,8 @@ export function normalizeGeo(geo: string) {
     city = capitalizeFirst(city);
   }
 
-  const region = geoParams[1]?.toUpperCase();
-  const country = geoParams[2]?.toUpperCase();
+  const region = geoParams[1]?.toUpperCase().trim();
+  const country = geoParams[2]?.toUpperCase().trim();
 
   return {
     city,

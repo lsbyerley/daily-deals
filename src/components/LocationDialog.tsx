@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Dialog,
   DialogContent,
@@ -6,13 +8,22 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { useRouter } from 'next/navigation'
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { LocateFixed } from 'lucide-react';
-import { DialogProps } from '@/types';
+import { DialogProps, Feature } from '@/types';
+import PlacesSearch from './PlacesSearch';
+import { normalizeGeoFromMB } from '@/lib/utils';
 
-export default async function LocationDialog(props: DialogProps) {
+export default function LocationDialog(props: DialogProps) {
+  const router = useRouter()
+
+  const handleSelectPlace = (props: Feature) => {
+    const geo = normalizeGeoFromMB(props);
+    router.push(`/city/${geo.city}, ${geo.region}, ${geo.country}`);
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -29,17 +40,13 @@ export default async function LocationDialog(props: DialogProps) {
               <span className='block'>
                 This action is currently a work in progress. Check back soon!
               </span>
-              <span className='block mt-4'>
+              <span className='block mt-4 break-words'>
                 Current Geo: {JSON.stringify(props, null, ' ')}
               </span>
-              <Link className='block mt-4' href='/city/johnson-city.tn.us'>
+              <Link className='block my-4' href='/city/johnson-city.tn.us'>
                 Example City Link
               </Link>
-              <Input
-                type='text'
-                placeholder='Search by city (non-functional)'
-                className='mt-4'
-              />
+              <PlacesSearch types='place' onPlaceSelect={handleSelectPlace} />
             </div>
           </DialogDescription>
         </DialogHeader>
