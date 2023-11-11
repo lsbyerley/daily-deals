@@ -20,7 +20,7 @@ export default function PlacesSearch({ types, onPlaceSelect, searchPlaceholder }
   return (
     <div className='w-full'>
       <Input
-        className=''
+        className='mt-4'
         placeholder={searchPlaceholder || 'Search for a place'}
         onChange={places.onChange}
         value={places.value}
