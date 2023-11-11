@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import { cookies } from 'next/headers';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClient } from '@/utils/supabase/server'
 import LogoutButton from '@/components/LogoutButton';
 import { ModeToggle } from './ModeToggle';
 
 export default async function Header() {
-  const supabase = createServerComponentClient({ cookies });
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
 
   const {
     data: { user },

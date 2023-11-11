@@ -1,4 +1,4 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClient } from '@/utils/supabase/server'
 import { cookies } from 'next/headers';
 import LocationDialog from '@/components/LocationDialog';
 
@@ -11,7 +11,8 @@ export const dynamic = 'force-dynamic';
 export default async function Index({ searchParams }: IndexPageProps) {
   const city = searchParams.city;
   const region = searchParams.region;
-  const supabase = createServerComponentClient<Database>({ cookies });
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
   const { data: deals } = await supabase
     .from('deals')
     .select('*, businesses!inner(*)')

@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation'
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClient } from '@/utils/supabase/server'
 import { cookies } from 'next/headers';
 import DealModule from '@/components/DealModule';
 import LocationDialog from '@/components/LocationDialog';
@@ -18,7 +18,13 @@ export default async function CityPage({ params }: CityPageProps) {
 
   const normalizedGeo = normalizeGeo(geo);
   const { city, region } = normalizedGeo;
-  const supabase = createServerComponentClient<Database>({ cookies });
+
+  if (!city || !region) {
+    return <p className='text-foreground mt-8'>City and/or State Not Recognized</p>
+  }
+
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
   const { data: deals } = await supabase
     .from('deals')
     .select('*, businesses!inner(*)')

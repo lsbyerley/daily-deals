@@ -9,18 +9,19 @@ import { Feature } from '@/types';
 interface props {
   types?: string
   onPlaceSelect?: Function
+  searchPlaceholder?: string
 }
 
 const token = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || 'na'
 
-export default function PlacesSearch({ types, onPlaceSelect }: props) {
+export default function PlacesSearch({ types, onPlaceSelect, searchPlaceholder }: props) {
   const places = usePlacesSearch({ initialValue: '', token, types });
 
   return (
     <div className='w-full'>
       <Input
         className=''
-        placeholder='Search for a place'
+        placeholder={searchPlaceholder || 'Search for a place'}
         onChange={places.onChange}
         value={places.value}
       />

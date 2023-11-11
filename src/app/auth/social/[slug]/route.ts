@@ -1,4 +1,4 @@
-import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
+import { createClient } from '@/utils/supabase/server'
 import { Provider } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
@@ -23,7 +23,7 @@ export async function GET(
 
   if (provider) {
     const cookieStore = cookies();
-    const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
+    const supabase = createClient(cookieStore);
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider,
       options,

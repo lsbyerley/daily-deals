@@ -1,13 +1,13 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClient } from '@/utils/supabase/server';
 import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation'
+import { redirect } from 'next/navigation';
 import PlacesSearch from '@/components/PlacesSearch';
 
 export const dynamic = 'force-dynamic';
 
 export default async function CreateBusiness() {
-  const cookieStore = cookies()
-  const supabase = createServerComponentClient({ cookies: () => cookieStore })
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
 
   const {
     data: { user },
@@ -25,7 +25,7 @@ export default async function CreateBusiness() {
 
         <div className='flex flex-col gap-8 text-foreground w-full'>
           <h2 className='text-lg font-bold text-center'>Create Business</h2>
-          <PlacesSearch />
+          <PlacesSearch searchPlaceholder='Search for a business' />
         </div>
       </div>
     </div>
