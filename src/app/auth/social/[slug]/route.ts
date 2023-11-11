@@ -2,6 +2,7 @@ import { createClient } from '@/utils/supabase/server'
 import { Provider } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
+import { getURL } from '@/lib/utils';
 
 export const dynamic = 'force-dynamic'
 
@@ -14,8 +15,6 @@ export async function GET(
   let options: { redirectTo: string; scopes?: string } = {
     redirectTo: `${new URL(req.url).origin}/auth/callback`,
   };
-
-  console.log('LOG: here', provider, options);
 
   if (provider == "azure") {
     options.scopes = "email";
