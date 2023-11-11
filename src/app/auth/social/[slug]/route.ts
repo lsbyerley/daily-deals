@@ -16,8 +16,6 @@ export async function GET(
     redirectTo: `${new URL(req.url).origin}/auth/callback`,
   };
 
-  console.log('LOG: auth/social', provider, options);
-
   if (provider == "azure") {
     options.scopes = "email";
   }
@@ -29,9 +27,6 @@ export async function GET(
       provider,
       options,
     });
-
-    console.log('LOG: auth/social', data, error);
-    console.log('LOG: auth/social', getURL());
 
     if (error) throw error;
 
