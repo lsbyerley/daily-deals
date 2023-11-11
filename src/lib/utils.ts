@@ -68,8 +68,8 @@ export function normalizeGeo(geo: string) {
     city = capitalizeFirst(city);
   }
 
-  const region = geoParams[1]?.toUpperCase().trim();
-  const country = geoParams[2]?.toUpperCase().trim();
+  const region = geoParams[1]?.toUpperCase().trim() || undefined;
+  const country = geoParams[2]?.toUpperCase().trim() || undefined;
 
   return {
     city,

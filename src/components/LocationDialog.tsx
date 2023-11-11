@@ -37,15 +37,6 @@ export default function LocationDialog(props: DialogProps) {
           <DialogTitle>View another location?</DialogTitle>
           <DialogDescription asChild>
             <div className='relative'>
-              <span className='block'>
-                This action is currently a work in progress. Check back soon!
-              </span>
-              <span className='block mt-4 break-words'>
-                Current Geo: {JSON.stringify(props, null, ' ')}
-              </span>
-              <Link className='block my-4' href='/city/johnson-city.tn.us'>
-                Example City Link
-              </Link>
               <PlacesSearch types='place' onPlaceSelect={handleSelectPlace} />
             </div>
           </DialogDescription>

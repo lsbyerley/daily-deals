@@ -14,8 +14,8 @@ export interface IndexPageProps {
 }
 
 export interface DialogProps {
-  city: String;
-  region: String;
+  city?: String;
+  region?: String;
   country?: String;
   usingDefaultGeo?: Boolean;
 }
