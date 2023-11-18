@@ -35,6 +35,7 @@ export default function PlacesSearch({ types, onPlaceSelect, searchPlaceholder }
                 onClick={() => {
                   if (onPlaceSelect) {
                     onPlaceSelect(suggestion);
+                    places.setSuggestions([]);
                     return;
                   }
                   places.setValue(suggestion.place_name);
