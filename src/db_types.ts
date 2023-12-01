@@ -20,6 +20,7 @@ export interface Database {
           region: string
           street: string | null
           type: string
+          verified: boolean | null
           website: string | null
           zipcode: string
         }
@@ -33,6 +34,7 @@ export interface Database {
           region: string
           street?: string | null
           type: string
+          verified?: boolean | null
           website?: string | null
           zipcode: string
         }
@@ -46,6 +48,7 @@ export interface Database {
           region?: string
           street?: string | null
           type?: string
+          verified?: boolean | null
           website?: string | null
           zipcode?: string
         }
@@ -62,6 +65,7 @@ export interface Database {
           time_end: string | null
           time_start: string | null
           type: string
+          verified: boolean | null
         }
         Insert: {
           business: number
@@ -73,6 +77,7 @@ export interface Database {
           time_end?: string | null
           time_start?: string | null
           type: string
+          verified?: boolean | null
         }
         Update: {
           business?: number
@@ -84,11 +89,13 @@ export interface Database {
           time_end?: string | null
           time_start?: string | null
           type?: string
+          verified?: boolean | null
         }
         Relationships: [
           {
             foreignKeyName: "deals_business_fkey"
             columns: ["business"]
+            isOneToOne: false
             referencedRelation: "businesses"
             referencedColumns: ["id"]
           }
@@ -123,6 +130,7 @@ export interface Database {
           {
             foreignKeyName: "profiles_id_fkey"
             columns: ["id"]
+            isOneToOne: true
             referencedRelation: "users"
             referencedColumns: ["id"]
           }
