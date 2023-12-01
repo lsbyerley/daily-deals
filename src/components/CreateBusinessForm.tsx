@@ -47,9 +47,20 @@ const formFields = [
 interface props {
   place: Feature
   handleSubmitCreate: Function
+  setPlace: Function
 }
 
-const CreateBusinessForm = ({ place, handleSubmitCreate }: props) => {
+const resetValues = {
+  name: '',
+  type: '',
+  street: '',
+  city: '',
+  region: '',
+  zipcode: '',
+  website: '',
+};
+
+const CreateBusinessForm = ({ place, setPlace, handleSubmitCreate }: props) => {
   const form = useForm<z.infer<typeof newBusinessSchema>>({
     resolver: zodResolver(newBusinessSchema),
     defaultValues: {
@@ -89,6 +100,11 @@ const CreateBusinessForm = ({ place, handleSubmitCreate }: props) => {
         ))}
         <Button type='submit'>Submit</Button>
       </form>
+      <Button onClick={() => {
+        setPlace();
+        form.reset(resetValues);
+        return;
+      }}>Clear</Button>
     </Form>
   );
 };

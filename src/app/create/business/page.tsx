@@ -22,15 +22,30 @@ export default async function CreateBusiness() {
   const handleCreateBusiness = async (createData: any) => {
     'use server'
 
+    const { street, city, zipcode } = createData;
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
 
-    const { data, error } = await supabase
+    // check if business already exists
+    const { data } = await supabase.from('businesses').select()
+    .eq('street', street)
+    .eq('city', city) 
+    .eq('zipcode', zipcode)
+    .single();
+
+    if (data) {
+      return { message: 'Business Already Exists' }
+    }
+
+    const { error } = await supabase
       .from('businesses')
       .insert(createData);
 
-    alert('Business Created Succesfully!');
-    redirect('/');
+    if (error) {
+      return { message: 'Business Creation Failed' }
+    }
+
+    return redirect('/');
   };
 
   return (

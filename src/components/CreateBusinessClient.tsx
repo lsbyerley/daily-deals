@@ -19,7 +19,7 @@ const CreateBusinessClient = ({ createBusiness }: props) => {
   return (
     <>
       <PlacesSearch searchPlaceholder='Search for a business' onPlaceSelect={handleSelectPlace} />
-      {place && <CreateBusinessForm place={place} handleSubmitCreate={createBusiness} />}
+      {place && <CreateBusinessForm place={place} setPlace={setPlace} handleSubmitCreate={createBusiness} />}
     </>
   )
 };
