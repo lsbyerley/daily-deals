@@ -19,6 +19,7 @@ export default function PlacesSearch({ types, onPlaceSelect, searchPlaceholder }
 
   return (
     <div className='w-full'>
+      <p className='text-sm text-muted-foreground'>Search for a business to add and we'll try to prefill the info for you</p>
       <Input
         className='mt-4'
         placeholder={searchPlaceholder || 'Search for a place'}
