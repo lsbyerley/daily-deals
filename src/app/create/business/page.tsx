@@ -37,7 +37,7 @@ export default async function CreateBusiness() {
       return { message: 'Business Already Exists' }
     }
 
-    const { error} = await supabase
+    const { error } = await supabase
       .from('businesses')
       .insert(createData);
     
@@ -45,7 +45,11 @@ export default async function CreateBusiness() {
       return { message: 'Business Creation Failed' }
     }
 
-    return redirect('/')
+    if (error) {
+      return { message: 'Business Creation Failed' }
+    }
+
+    return redirect('/');
   };
 
   return (

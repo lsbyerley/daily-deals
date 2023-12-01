@@ -50,7 +50,7 @@ interface props {
   setPlace: Function
 }
 
-const defaultValues = {
+const resetValues = {
   name: '',
   type: '',
   street: '',
@@ -60,7 +60,7 @@ const defaultValues = {
   website: '',
 };
 
-const CreateBusinessForm = ({ place, handleSubmitCreate, setPlace }: props) => {
+const CreateBusinessForm = ({ place, setPlace, handleSubmitCreate }: props) => {
   const form = useForm<z.infer<typeof newBusinessSchema>>({
     resolver: zodResolver(newBusinessSchema),
     defaultValues: {
@@ -102,7 +102,7 @@ const CreateBusinessForm = ({ place, handleSubmitCreate, setPlace }: props) => {
       </form>
       <Button onClick={() => {
         setPlace();
-        form.reset(defaultValues);
+        form.reset(resetValues);
         return;
       }}>Clear</Button>
     </Form>
