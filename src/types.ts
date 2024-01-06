@@ -2,6 +2,8 @@ import type { Database } from '@/db_types';
 
 export type Deal = Database['public']['Tables']['deals']['Row'];
 export type Business = Database['public']['Tables']['businesses']['Row'];
+export type Profile = Database['public']['Tables']['profiles']['Row'];
+export type Role = Database['public']['Tables']['roles']['Row'];
 
 export interface IndexPageProps {
   params: Object;

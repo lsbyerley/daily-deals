@@ -60,6 +60,8 @@ const resetValues = {
   website: '',
 };
 
+// TODO: util to convert state to state abbrev
+
 const CreateBusinessForm = ({ place, setPlace, handleSubmitCreate }: props) => {
   const form = useForm<z.infer<typeof newBusinessSchema>>({
     resolver: zodResolver(newBusinessSchema),

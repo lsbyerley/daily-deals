@@ -20,7 +20,12 @@ const usePlacesSearch = (props: SearchProps) => {
   const debouncedValue = useDebounce(value, 600);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setValue(event?.target?.value);
+    const { value } = event.target;
+    if (value === '') {
+      setSelected(undefined);
+      setSuggestions([])
+    };
+    setValue(value);
   };
 
   const performFetch = async () => {

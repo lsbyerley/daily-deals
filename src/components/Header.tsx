@@ -1,16 +1,16 @@
 import Link from 'next/link';
-import { cookies } from 'next/headers';
-import { createClient } from '@/utils/supabase/server'
 import LogoutButton from '@/components/LogoutButton';
 import { ModeToggle } from './ModeToggle';
+import { Profile } from '@/types';
+import { User } from '@supabase/supabase-js';
 
-export default async function Header() {
-  const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
+interface HeaderProps {
+  user?: User | null
+  profile?: Profile | null
+}
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+export default async function Header(props: HeaderProps) {
+  const { user, profile } = props;
 
   return (
     <nav className='w-full flex justify-center border-b border-b-foreground/10 h-16'>
@@ -18,15 +18,16 @@ export default async function Header() {
         <Link href='/' className='text-foreground'>
           DailyDeals
         </Link>
-        {/*<Link href='/deals' className='text-foreground'>
-          Deals
-        </Link>
-        <Link href='/admin' className='text-foreground'>
-          Admin
-        </Link>
-        <Link href='/businesses' className='text-foreground'>
-          Businesses
-        </Link>*/}
+        {profile?.role === 1 && (
+          <>
+            <Link href='/create/business' className='text-foreground'>
+              Create Biz
+            </Link>
+            <Link href='/create/deal' className='text-foreground'>
+            Create Deal
+            </Link>
+          </>
+        )}
         <div>
           {user ? (
             <div className='flex items-center gap-4'>
