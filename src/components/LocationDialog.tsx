@@ -9,7 +9,6 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { useRouter } from 'next/navigation'
-import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { LocateFixed } from 'lucide-react';
 import { DialogProps, Feature } from '@/types';

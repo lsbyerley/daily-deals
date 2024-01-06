@@ -3,7 +3,6 @@
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import usePlacesSearch from '@/app/hooks/usePlacesSearch';
-import SelectedPlace from '@/components/SelectedPlace';
 import { Feature } from '@/types';
 
 interface props {
@@ -35,8 +34,6 @@ export default function PlacesSearch({ types, onPlaceSelect, searchPlaceholder }
                 onClick={() => {
                   if (onPlaceSelect) {
                     onPlaceSelect(suggestion);
-                    places.setSuggestions([]);
-                    return;
                   }
                   places.setValue(suggestion.place_name);
                   places.setSuggestions([]);
@@ -49,7 +46,6 @@ export default function PlacesSearch({ types, onPlaceSelect, searchPlaceholder }
           );
         })}
       </ul>
-      <SelectedPlace place={places.selected} />
     </div>
   );
 }
