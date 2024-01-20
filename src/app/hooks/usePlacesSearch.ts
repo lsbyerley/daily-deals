@@ -2,7 +2,8 @@
 
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useDebounce } from 'usehooks-ts'
-import { Feature } from '@/types';
+import { Suggestion } from '@/types';
+import { v4 as uuidv4 } from 'uuid';
 
 // https://docs.mapbox.com/api/search/geocoding/
 
@@ -15,9 +16,10 @@ interface SearchProps {
 const usePlacesSearch = (props: SearchProps) => {
   const { initialValue, token, types = 'poi' } = props;
   const [value, setValue] = useState(initialValue);
-  const [selected, setSelected] = useState<Feature>();
-  const [suggestions, setSuggestions] = useState<Feature[]>([]);
+  const [selected, setSelected] = useState<Suggestion>();
+  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const debouncedValue = useDebounce(value, 600);
+  const session_token = uuidv4();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
@@ -31,11 +33,11 @@ const usePlacesSearch = (props: SearchProps) => {
   const performFetch = async () => {
     // TODO: move fetch to api route
     try {
-      const endpoint = `https://api.mapbox.com/geocoding/v5/mapbox.places/${debouncedValue}.json?access_token=${token}&autocomplete=true&types=${types}&country=US`;
+      //const endpoint = `https://api.mapbox.com/geocoding/v5/mapbox.places/${debouncedValue}.json?access_token=${token}&autocomplete=true&types=${types}&country=US`;
+      const endpoint = `https://api.mapbox.com/search/searchbox/v1/suggest?q=${debouncedValue}&access_token=${token}&session_token=${session_token}&types=${types}&country=US&language=en&limit=10`
       const response = await fetch(endpoint);
       const results = await response.json();
-      // console.log('results', results);
-      setSuggestions(results?.features);
+      setSuggestions(results?.suggestions);
     } catch (error) {
       console.log('Error fetching data, ', error);
     }

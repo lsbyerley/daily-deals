@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
@@ -14,7 +15,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Feature } from '@/types';
+import { Suggestion } from '@/types';
 
 const newBusinessSchema = z.object({
   city: z.string().min(2).max(25),
@@ -28,26 +29,42 @@ const newBusinessSchema = z.object({
   zipcode: z.string().min(5).max(5),
 });
 
-interface FormFields {
-  fieldName: 'name'
-  fieldLabel: string
-  fieldDesc: string
+interface FormFieldsInterface {
+  fieldName: string;
+  fieldLabel: string;
+  fieldDesc: string;
 }
 
-const formFields = [
+const formFields: FormFieldsInterface[] = [
   { fieldName: 'name', fieldLabel: 'Name', fieldDesc: 'Name of the business' },
   { fieldName: 'type', fieldLabel: 'Type', fieldDesc: 'Type of business' },
-  { fieldName: 'street', fieldLabel: 'Street', fieldDesc: 'Street of the business' },
+  {
+    fieldName: 'street',
+    fieldLabel: 'Street',
+    fieldDesc: 'Street of the business',
+  },
   { fieldName: 'city', fieldLabel: 'City', fieldDesc: 'City of the business' },
-  { fieldName: 'region', fieldLabel: 'State', fieldDesc: 'State of the business' },
-  { fieldName: 'zipcode', fieldLabel: 'Zipcode', fieldDesc: 'Zipcode of the business' },
-  { fieldName: 'website', fieldLabel: 'Website', fieldDesc: 'Business website' },
-] as FormFields[];
+  {
+    fieldName: 'region',
+    fieldLabel: 'State',
+    fieldDesc: 'State of the business',
+  },
+  {
+    fieldName: 'zipcode',
+    fieldLabel: 'Zipcode',
+    fieldDesc: 'Zipcode of the business',
+  },
+  {
+    fieldName: 'website',
+    fieldLabel: 'Website',
+    fieldDesc: 'Business website',
+  },
+] as const;
 
 interface props {
-  place: Feature
-  handleSubmitCreate: Function
-  setPlace: Function
+  place: Suggestion;
+  handleSubmitCreate: Function;
+  setPlace: Function;
 }
 
 const resetValues = {
@@ -63,27 +80,33 @@ const resetValues = {
 // TODO: util to convert state to state abbrev
 
 const CreateBusinessForm = ({ place, setPlace, handleSubmitCreate }: props) => {
+  const [formRes, setFormRes] = useState();
   const form = useForm<z.infer<typeof newBusinessSchema>>({
     resolver: zodResolver(newBusinessSchema),
     defaultValues: {
-      name: place.text || '',
-      type: place.properties.category || '',
-      street: place.properties.address || '',
-      city: place.context.find(c => c.id.includes('place.'))?.text || '',
-      region: place.context.find(c => c.id.includes('region.'))?.text || '',
-      zipcode: place.context.find(c => c.id.includes('postcode.'))?.text || '',
-      website: '',
+      name: place.name || '',
+      type: place.maki || '',
+      street: place.context.address.name || '',
+      city: place.context.place.name || '',
+      region: place.context.region.name || '',
+      zipcode: place.context.postcode.name || '',
+      website: place.metadata.website || '',
     },
   });
 
-  const onSubmit = (values: z.infer<typeof newBusinessSchema>) => {
-    handleSubmitCreate(values);
+  const onSubmit = async (values: z.infer<typeof newBusinessSchema>) => {
+    const formRes = await handleSubmitCreate(values);
+    setFormRes(formRes?.message);
   };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
-        {formFields.map((f) => (
+      <form
+        id='create-business-form'
+        onSubmit={form.handleSubmit(onSubmit)}
+        className='space-y-8'
+      >
+        {formFields.map((f: any) => (
           <FormField
             key={f.fieldName}
             control={form.control}
@@ -100,13 +123,22 @@ const CreateBusinessForm = ({ place, setPlace, handleSubmitCreate }: props) => {
             )}
           />
         ))}
-        <Button type='submit'>Submit</Button>
       </form>
-      <Button onClick={() => {
-        setPlace();
-        form.reset(resetValues);
-        return;
-      }}>Clear</Button>
+      <div className=''>Form RES: {formRes}</div>
+      <div className='flex justify-between'>
+        <Button form='create-business-form' type='submit'>
+          Submit
+        </Button>
+        <Button
+          onClick={() => {
+            setPlace();
+            form.reset(resetValues);
+            return;
+          }}
+        >
+          Clear
+        </Button>
+      </div>
     </Form>
   );
 };

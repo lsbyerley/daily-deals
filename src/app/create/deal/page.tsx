@@ -1,12 +1,12 @@
 import { createClient } from '@/utils/supabase/server';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import CreateBusinessClient from '@/components/CreateBusinessClient';
-import { CreateBusinessStructure } from '@/types';
+import CreateDealForm from '@/components/CreateDealForm';
+import { CreateDealStructure } from '@/types';
 
 export const dynamic = 'force-dynamic';
 
-export default async function CreateBusiness() {
+export default async function CreateDeal() {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
@@ -18,33 +18,36 @@ export default async function CreateBusiness() {
     redirect('/login');
   }
 
-  const handleCreateBusiness = async (createData: CreateBusinessStructure) => {
-    'use server'
+  const { data: businesses } = await supabase.from('businesses').select();
 
-    const { street, city, zipcode } = createData;
+  const handleCreateDeal = async (createData: CreateDealStructure) => {
+    'use server'
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
 
-    // check if business already exists
-    const { data } = await supabase.from('businesses').select()
-    .eq('street', street)
-    .eq('city', city) 
-    .eq('zipcode', zipcode)
+    const { business, type, category, day } = createData;
+
+    // check if deal already exists
+    const { data } = await supabase.from('deals').select()
+    .eq('business', business)
+    .eq('type', type) 
+    .eq('category', category)
+    .eq('day', day)
     .single();
 
     if (data) {
-      return { message: 'Business Already Exists' }
+      return { message: 'Deal Already Exists' }
     }
 
     const { error } = await supabase
-      .from('businesses')
+      .from('deals')
       .insert(createData);
 
     if (error) {
-      return { message: `Business Creation Failed: ${error}` }
+      return { message: `Deal Creation Failed ${error}` }
     }
 
-    return redirect('/create/business/success');
+    return redirect('/create/deal/success');
   };
 
   return (
@@ -53,8 +56,8 @@ export default async function CreateBusiness() {
         <div className='w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent' />
 
         <div className='flex flex-col gap-8 text-foreground w-full'>
-          <h2 className='text-lg font-bold text-center'>Create Business</h2>
-          <CreateBusinessClient createBusiness={handleCreateBusiness} />
+          <h2 className='text-lg font-bold text-center'>Create Deal</h2>
+          <CreateDealForm businesses={businesses} createDeal={handleCreateDeal} />
         </div>
       </div>
     </div>

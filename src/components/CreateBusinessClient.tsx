@@ -3,16 +3,16 @@
 import { useState } from "react";
 import PlacesSearch from "./PlacesSearch";
 import CreateBusinessForm from "./CreateBusinessForm";
-import { Feature } from '@/types';
+import { Suggestion } from '@/types';
 
 interface props {
   createBusiness: Function
 }
 
 const CreateBusinessClient = ({ createBusiness }: props) => {
-  const [place, setPlace] = useState<Feature>();
+  const [place, setPlace] = useState<Suggestion>();
 
-  const handleSelectPlace = (place: Feature) => {
+  const handleSelectPlace = (place: Suggestion) => {
     setPlace(place);
   };
 

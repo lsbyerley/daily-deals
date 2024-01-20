@@ -36,6 +36,7 @@ export interface DealModuleProps {
   deals: DealWithBusiness[] | null;
 }
 
+// Mapbox Feature
 export interface Feature {
   id: string
   type: string
@@ -67,4 +68,84 @@ export interface FeatureContext {
   text: string
   wikidata?: string
   short_code?: string
+}
+
+// Mapbox Suggestion
+export interface Suggestion {
+  name: string;
+  mapbox_id: string;
+  feature_type: string;
+  address: string;
+  full_address: string;
+  place_formatted: string;
+  context: SuggestionContext;
+  language: string;
+  maki: string;
+  poi_category?: (string)[] | null;
+  poi_category_ids?: (string)[] | null;
+  external_ids: ExternalIds;
+  metadata: SuggestionMetadata;
+  distance: number;
+}
+export interface SuggestionContext {
+  country: Country;
+  region: Region;
+  postcode: PostcodeOrPlace;
+  place: PostcodeOrPlace;
+  address: Address;
+  street: Street;
+}
+export interface Country {
+  name: string;
+  country_code: string;
+  country_code_alpha_3: string;
+}
+export interface Region {
+  name: string;
+  region_code: string;
+  region_code_full: string;
+}
+export interface PostcodeOrPlace {
+  id: string;
+  name: string;
+}
+export interface Address {
+  name: string;
+  address_number: string;
+  street_name: string;
+}
+export interface Street {
+  name: string;
+}
+export interface ExternalIds {
+  foursquare: string;
+}
+export interface SuggestionMetadata {
+  phone: string;
+  website: string;
+  opening_hours: OpeningHours;
+  primary_photo_urls?: (null)[] | null;
+}
+export interface OpeningHours {
+  opening_hours: string;
+}
+
+export interface CreateBusinessStructure {
+  name: string
+  type: string
+  street: string
+  city: string
+  region: string
+  zipcode: string
+  website: string
+}
+
+export interface CreateDealStructure {
+  business: string
+  type: string
+  category: string
+  day: string
+  description: string
+  time_start: string
+  time_end: string
 }

@@ -3,7 +3,7 @@
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import usePlacesSearch from '@/app/hooks/usePlacesSearch';
-import { Feature } from '@/types';
+import { Suggestion } from '@/types';
 
 interface props {
   types?: string
@@ -25,9 +25,9 @@ export default function PlacesSearch({ types, onPlaceSelect, searchPlaceholder }
         value={places.value}
       />
       <ul className='w-full mt-4'>
-        {places.suggestions?.map((suggestion: Feature) => {
+        {places.suggestions?.map((suggestion: Suggestion) => {
           return (
-            <li key={suggestion.id}>
+            <li key={suggestion.mapbox_id}>
               <Button
                 variant='outline'
                 className='mb-2 w-full'
@@ -35,12 +35,12 @@ export default function PlacesSearch({ types, onPlaceSelect, searchPlaceholder }
                   if (onPlaceSelect) {
                     onPlaceSelect(suggestion);
                   }
-                  places.setValue(suggestion.place_name);
+                  places.setValue(suggestion.name);
                   places.setSuggestions([]);
                   places.setSelected(suggestion);
                 }}
               >
-                {suggestion.place_name}
+                {suggestion.name} ({suggestion.place_formatted})
               </Button>
             </li>
           );
