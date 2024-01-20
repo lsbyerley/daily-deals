@@ -2,7 +2,6 @@ import { createClient } from '@/utils/supabase/server'
 import { cookies } from 'next/headers';
 import LocationDialog from '@/components/LocationDialog';
 
-import type { Database } from '@/db_types';
 import { IndexPageProps } from '@/types';
 import DealModule from '@/components/DealModule';
 

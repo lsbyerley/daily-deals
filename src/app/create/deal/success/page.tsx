@@ -7,9 +7,9 @@ export default async function CreateBusinessSuccess() {
         <div className='w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent' />
 
         <div className='flex flex-col gap-8 text-foreground w-full'>
-          <h2 className='text-lg font-bold text-center'>Create Business</h2>
-          <p className="text-center">Business Created Successfully!</p>
-          <p className='text-center'><Link href={'/create/business'} className='text-blue-400'>Create another</Link></p>
+          <h2 className='text-lg font-bold text-center'>Create Deal</h2>
+          <p className="text-center">Deal Created Successfully!</p>
+          <p className='text-center'><Link href={'/create/deal'} className='text-blue-400'>Create another</Link></p>
         </div>
       </div>
     </div>
