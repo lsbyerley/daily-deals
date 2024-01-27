@@ -11,14 +11,14 @@ import {
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button';
 import { LocateFixed } from 'lucide-react';
-import { DialogProps, Feature } from '@/types';
+import { DialogProps, Suggestion } from '@/types';
 import PlacesSearch from './PlacesSearch';
 import { normalizeGeoFromMB } from '@/lib/utils';
 
 export default function LocationDialog(props: DialogProps) {
   const router = useRouter()
 
-  const handleSelectPlace = (props: Feature) => {
+  const handleSelectPlace = (props: Suggestion) => {
     const geo = normalizeGeoFromMB(props);
     router.push(`/city/${geo.city}, ${geo.region}, ${geo.country}`);
   };
