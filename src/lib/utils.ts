@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge';
 import { isAfter, isBefore } from 'date-fns';
 import { format } from 'date-fns-tz';
 
-import { DealWithBusiness, Feature, FeatureContext } from '@/types';
+import { DealWithBusiness, Suggestion } from '@/types';
 
 export const getURL = () => {
   let url =
@@ -50,12 +50,11 @@ export const isActiveDealTime = (deal: DealWithBusiness): Boolean => {
 };
 
 // normalizes a mapbox feature into geo
-export function normalizeGeoFromMB(geo: Feature) {
-  const { context, text } = geo;
-  const city = text;
-  const regionContext = context.find((c: FeatureContext) => c.id.includes('region'));
-  const region = regionContext?.short_code?.split('-')[1];
-  const country = regionContext?.short_code?.split('-')[0];
+export function normalizeGeoFromMB(geo: Suggestion) {
+  const { context, name } = geo;
+  const city = name;
+  const region = context.region.region_code;
+  const country = context.country.country_code
 
   return {
     city,

@@ -88,7 +88,7 @@ const CreateBusinessForm = ({ place, setPlace, handleSubmitCreate }: props) => {
       type: place.maki || '',
       street: place.context.address.name || '',
       city: place.context.place.name || '',
-      region: place.context.region.name || '',
+      region: place.context.region.region_code || '',
       zipcode: place.context.postcode.name || '',
       website: place.metadata.website || '',
     },
