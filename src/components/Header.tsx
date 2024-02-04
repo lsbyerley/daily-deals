@@ -1,47 +1,94 @@
+'use client';
+
 import Link from 'next/link';
 import LogoutButton from '@/components/LogoutButton';
 import { ModeToggle } from './ModeToggle';
 import { Profile } from '@/types';
 import { User } from '@supabase/supabase-js';
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  // NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  // NavigationMenuViewport,
+  navigationMenuTriggerStyle,
+} from '@/components/ui/navigation-menu';
+import clsx from 'clsx';
 
 interface HeaderProps {
-  user?: User | null
-  profile?: Profile | null
+  user?: User | null;
+  profile?: Profile | null;
 }
 
-export default async function Header(props: HeaderProps) {
+export default function Header(props: HeaderProps) {
   const { user, profile } = props;
 
   return (
-    <nav className='w-full flex justify-center border-b border-b-foreground/10 h-16'>
-      <div className='w-full max-w-4xl flex justify-between items-center p-3 text-sm text-foreground'>
-        <Link href='/' className='text-foreground'>
-          DailyDeals
-        </Link>
-        {profile?.role === 1 && (
-          <>
-            <Link href='/create/business' className='text-foreground'>
-              Create Biz
-            </Link>
-            <Link href='/create/deal' className='text-foreground'>
-            Create Deal
-            </Link>
-          </>
-        )}
-        <div>
-          {user ? (
-            <div className='flex items-center gap-4'>
-              Hey, {user.email}!
-              <LogoutButton />
-            </div>
-          ) : (
-            <Link href='/login' className='text-foreground'>
-              Login
-            </Link>
-          )}
-        </div>
+    <header className='relative flex justify-center items-center w-screen py-4 px-4'>
+      <Link href='/'>
+      <h2 className='text-lg font-semibold'>DailyDeals</h2>
+      </Link>
+      <div className='ml-auto flex w-full justify-end'>
+        <NavigationMenu className='mr-4'>
+          <NavigationMenuList>
+            {user ? (
+              <>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 24 24'
+                      stroke-width='1.5'
+                      stroke='currentColor'
+                      className='w-6 h-6'
+                    >
+                      <path
+                        stroke-linecap='round'
+                        stroke-linejoin='round'
+                        d='M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5'
+                      />
+                    </svg>
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <LogoutButton />
+                    {profile?.role === 1 && (
+                      <>
+                        <Link href='/create/business' legacyBehavior passHref>
+                          <NavigationMenuLink
+                            className={clsx(navigationMenuTriggerStyle(), 'w-full')}
+                          >
+                            Create Business
+                          </NavigationMenuLink>
+                        </Link>
+                        <Link href='/create/deal' legacyBehavior passHref className='w-full'>
+                          <NavigationMenuLink
+                            className={clsx(navigationMenuTriggerStyle(), 'w-full')}
+                          >
+                            Create Deal
+                          </NavigationMenuLink>
+                        </Link>
+                      </>
+                    )}
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </>
+            ) : (
+              <NavigationMenuItem>
+                <Link href='/login' legacyBehavior passHref>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    Login
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+            )}
+          </NavigationMenuList>
+        </NavigationMenu>
         <ModeToggle />
       </div>
-    </nav>
+    </header>
   );
 }
