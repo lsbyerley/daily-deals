@@ -16,18 +16,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Suggestion } from '@/types';
-
-const newBusinessSchema = z.object({
-  city: z.string().min(2).max(25),
-  gps_lat: z.number().optional(),
-  gps_long: z.number().optional(),
-  name: z.string().min(2).max(50),
-  region: z.string().min(2).max(25),
-  street: z.string().min(2).max(50),
-  type: z.string().min(2).max(25),
-  website: z.string().url().or(z.literal('')),
-  zipcode: z.string().min(5).max(5),
-});
+import { businessesInsertSchema } from '@/zodschema';
 
 interface FormFieldsInterface {
   fieldName: string;
@@ -81,8 +70,8 @@ const resetValues = {
 
 const CreateBusinessForm = ({ place, setPlace, handleSubmitCreate }: props) => {
   const [formRes, setFormRes] = useState();
-  const form = useForm<z.infer<typeof newBusinessSchema>>({
-    resolver: zodResolver(newBusinessSchema),
+  const form = useForm<z.infer<typeof businessesInsertSchema>>({
+    resolver: zodResolver(businessesInsertSchema),
     defaultValues: {
       name: place.name || '',
       type: place.maki || '',
@@ -94,7 +83,7 @@ const CreateBusinessForm = ({ place, setPlace, handleSubmitCreate }: props) => {
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof newBusinessSchema>) => {
+  const onSubmit = async (values: z.infer<typeof businessesInsertSchema>) => {
     const formRes = await handleSubmitCreate(values);
     setFormRes(formRes?.message);
   };

@@ -18,7 +18,7 @@ export default async function CreateDeal() {
     redirect('/login');
   }
 
-  const { data: businesses } = await supabase.from('businesses').select();
+  const { data: businesses } = await supabase.from('businesses').select().order('name', { ascending: true });
 
   const handleCreateDeal = async (createData: CreateDealStructure) => {
     'use server'

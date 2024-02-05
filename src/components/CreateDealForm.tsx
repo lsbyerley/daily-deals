@@ -23,15 +23,16 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import TimePicker from 'react-time-picker';
-import { Deal, Business } from '@/types';
+import { Business } from '@/types';
+import { dealsInsertSchema } from '@/zodschema';
 import { useState } from 'react';
 
-interface FormFieldsInterface {
+interface FormConfig {
   fieldType?: string;
-  fieldName: string;
+  fieldName: any; //TODO: setting this as string breaks FormField name?
   fieldLabel: string;
   fieldDesc: string;
-  fieldOptions?: { option: string; value: string }[];
+  fieldOptions?: { option: string; value: string | number }[];
 }
 
 interface props {
@@ -39,22 +40,12 @@ interface props {
   createDeal: Function;
 }
 
-const newDealSchema = z.object({
-  business: z.string().min(1),
-  type: z.string().min(1),
-  category: z.string().min(1),
-  day: z.string().min(1),
-  description: z.string().min(3),
-  time_start: z.string().nullable(),
-  time_end: z.string().nullable(),
-});
-
 const CreateDealForm = ({ businesses, createDeal }: props) => {
   const [formRes, setFormRes] = useState<string>();
-  const form = useForm<z.infer<typeof newDealSchema>>({
-    resolver: zodResolver(newDealSchema),
+  const form = useForm<z.infer<typeof dealsInsertSchema>>({
+    resolver: zodResolver(dealsInsertSchema),
     defaultValues: {
-      business: '',
+      business: undefined,
       type: undefined,
       category: undefined,
       day: undefined,
@@ -88,7 +79,7 @@ const CreateDealForm = ({ businesses, createDeal }: props) => {
     { option: 'Sunday', value: 'Sunday' },
   ];
 
-  const formFields: FormFieldsInterface[] = [
+  const formFields: FormConfig[] = [
     {
       fieldName: 'business',
       fieldLabel: 'Business',
@@ -141,7 +132,7 @@ const CreateDealForm = ({ businesses, createDeal }: props) => {
     input: ({ field, config }: any) => <Input {...field} />,
     select: ({ field, config }: any) => (
       <Select {...field} onValueChange={field.onChange}>
-        <SelectTrigger className='w-[50%]'>
+        <SelectTrigger className=''>
           <SelectValue placeholder={config.fieldLabel} />
         </SelectTrigger>
         <SelectContent>
@@ -155,17 +146,18 @@ const CreateDealForm = ({ businesses, createDeal }: props) => {
     ),
     textarea: ({ field, config }: any) => <Textarea {...field} />,
     time: ({ field, config }: any) => (
-      <div className='flex'>
+      <div className='flex w-full'>
         <TimePicker
           onChange={field.onChange}
           value={field.value}
           disableClock={true}
+          className={'w-full text-center'}
         />
       </div>
     ),
   } as const;
 
-  const onSubmit = async (values: z.infer<typeof newDealSchema>) => {
+  const onSubmit = async (values: z.infer<typeof dealsInsertSchema>) => {
     const createRes = await createDeal(values);
     setFormRes(createRes?.message);
     console.log('LOG: createRes', createRes);
@@ -178,8 +170,10 @@ const CreateDealForm = ({ businesses, createDeal }: props) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className='space-y-8'
       >
-        {formFields.map((config: any) => (
-          <FormField
+        <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
+        {formFields.map((config: FormConfig) => (
+          <div className='w-full' key={config.fieldName}>
+            <FormField
             key={config.fieldName}
             control={form.control}
             name={config.fieldName}
@@ -194,7 +188,9 @@ const CreateDealForm = ({ businesses, createDeal }: props) => {
               </FormItem>
             )}
           />
+          </div>
         ))}
+        </div>
       </form>
       <div className=''>Form RES: {formRes}</div>
       <div className='flex justify-between'>

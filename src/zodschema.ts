@@ -29,17 +29,15 @@ export const businessesRowSchema = z.object({
 });
 
 export const businessesInsertSchema = z.object({
-  city: z.string(),
-  created_at: z.string().optional(),
-  gps_lat: z.number().optional().nullable(),
-  gps_long: z.number().optional().nullable(),
-  id: z.number().optional(),
-  name: z.string(),
-  region: z.string(),
-  street: z.string().optional().nullable(),
-  type: z.string(),
-  website: z.string().optional().nullable(),
-  zipcode: z.string(),
+  city: z.string().min(2).max(25),
+  gps_lat: z.number().optional(),
+  gps_long: z.number().optional(),
+  name: z.string().min(2).max(50),
+  region: z.string().min(2).max(25),
+  street: z.string().min(2).max(50),
+  type: z.string().min(2).max(25),
+  website: z.string().url().or(z.literal('')),
+  zipcode: z.string().min(5).max(5),
 });
 
 export const businessesUpdateSchema = z.object({
@@ -69,15 +67,13 @@ export const dealsRowSchema = z.object({
 });
 
 export const dealsInsertSchema = z.object({
-  business: z.number(),
-  category: z.string().optional().nullable(),
-  created_at: z.string().optional(),
-  day: z.string().optional().nullable(),
-  description: z.string(),
-  id: z.number().optional(),
+  business: z.string().min(1),
+  category: z.string().min(1),
+  day: z.string().min(1),
+  description: z.string().min(3),
   time_end: z.string().optional().nullable(),
   time_start: z.string().optional().nullable(),
-  type: z.string(),
+  type: z.string().min(1),
 });
 
 export const dealsUpdateSchema = z.object({

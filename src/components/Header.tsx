@@ -5,6 +5,7 @@ import LogoutButton from '@/components/LogoutButton';
 import { ModeToggle } from './ModeToggle';
 import { Profile } from '@/types';
 import { User } from '@supabase/supabase-js';
+import { HamburgerMenuIcon } from '@radix-ui/react-icons';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -38,20 +39,7 @@ export default function Header(props: HeaderProps) {
               <>
                 <NavigationMenuItem>
                   <NavigationMenuTrigger>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      stroke-width='1.5'
-                      stroke='currentColor'
-                      className='w-6 h-6'
-                    >
-                      <path
-                        stroke-linecap='round'
-                        stroke-linejoin='round'
-                        d='M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5'
-                      />
-                    </svg>
+                    <HamburgerMenuIcon />
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <LogoutButton />
@@ -59,14 +47,14 @@ export default function Header(props: HeaderProps) {
                       <>
                         <Link href='/create/business' legacyBehavior passHref>
                           <NavigationMenuLink
-                            className={clsx(navigationMenuTriggerStyle(), 'w-full')}
+                            className={clsx('w-full', navigationMenuTriggerStyle())}
                           >
                             Create Business
                           </NavigationMenuLink>
                         </Link>
-                        <Link href='/create/deal' legacyBehavior passHref className='w-full'>
+                        <Link href='/create/deal' legacyBehavior passHref>
                           <NavigationMenuLink
-                            className={clsx(navigationMenuTriggerStyle(), 'w-full')}
+                            className={clsx('w-full', navigationMenuTriggerStyle())}
                           >
                             Create Deal
                           </NavigationMenuLink>
