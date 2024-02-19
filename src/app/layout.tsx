@@ -2,12 +2,15 @@ import './globals.css';
 import 'react-time-picker/dist/TimePicker.css';
 import 'react-clock/dist/Clock.css';
 
+import { Suspense } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { Analytics } from '@vercel/analytics/react';
 import { cookies } from 'next/headers';
 import { createClient } from '@/utils/supabase/server'
+import Loading from './loading';
+
 
 export const metadata = {
   title: 'Daily Deals',
@@ -36,6 +39,7 @@ export default async function RootLayout({
     <html lang='en' suppressHydrationWarning>
       <body>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
+          <Suspense fallback={<Loading />} />
           <Header user={user} profile={profile} />
           <main className='min-h-screen flex flex-col items-center'>
             {children}

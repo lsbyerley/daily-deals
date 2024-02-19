@@ -5,7 +5,7 @@ import LogoutButton from '@/components/LogoutButton';
 import { ModeToggle } from './ModeToggle';
 import { Profile } from '@/types';
 import { User } from '@supabase/supabase-js';
-import { HamburgerMenuIcon } from '@radix-ui/react-icons';
+import { Menu, CalendarDays } from 'lucide-react';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -28,9 +28,15 @@ export default function Header(props: HeaderProps) {
   const { user, profile } = props;
 
   return (
-    <header className='relative flex justify-center items-center w-screen py-4 px-4'>
+    <header className='relative flex justify-center items-center w-screen px-6 py-3 border-b'>
       <Link href='/'>
-      <h2 className='text-lg font-semibold'>DailyDeals</h2>
+        <div className='flex items-center'>
+          <h2 className='text-sm font-semibold inline-flex items-center'>
+            <span>Daily</span>
+            <CalendarDays className='mx-1 h-[1.2rem] w-[1.2rem]' />
+            <span>Deals</span>
+          </h2>
+        </div>
       </Link>
       <div className='ml-auto flex w-full justify-end'>
         <NavigationMenu className='mr-4'>
@@ -39,7 +45,7 @@ export default function Header(props: HeaderProps) {
               <>
                 <NavigationMenuItem>
                   <NavigationMenuTrigger>
-                    <HamburgerMenuIcon />
+                    <Menu className='h-[1.2rem] w-[1.2rem]' />
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <LogoutButton />
@@ -47,14 +53,20 @@ export default function Header(props: HeaderProps) {
                       <>
                         <Link href='/create/business' legacyBehavior passHref>
                           <NavigationMenuLink
-                            className={clsx('w-full', navigationMenuTriggerStyle())}
+                            className={clsx(
+                              'w-full',
+                              navigationMenuTriggerStyle()
+                            )}
                           >
                             Create Business
                           </NavigationMenuLink>
                         </Link>
                         <Link href='/create/deal' legacyBehavior passHref>
                           <NavigationMenuLink
-                            className={clsx('w-full', navigationMenuTriggerStyle())}
+                            className={clsx(
+                              'w-full',
+                              navigationMenuTriggerStyle()
+                            )}
                           >
                             Create Deal
                           </NavigationMenuLink>
