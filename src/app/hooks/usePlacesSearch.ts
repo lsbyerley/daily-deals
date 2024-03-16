@@ -1,7 +1,7 @@
 'use client';
 
 import { ChangeEvent, useEffect, useState } from 'react';
-import { useDebounce } from 'usehooks-ts'
+import { useDebounceValue } from 'usehooks-ts'
 import { Suggestion } from '@/types';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -18,7 +18,7 @@ const usePlacesSearch = (props: SearchProps) => {
   const [value, setValue] = useState(initialValue);
   const [selected, setSelected] = useState<Suggestion>();
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
-  const debouncedValue = useDebounce(value, 600);
+  const [debouncedValue] = useDebounceValue(value, 600);
   const session_token = uuidv4();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
