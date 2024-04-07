@@ -18,13 +18,7 @@ import { Input } from '@/components/ui/input';
 import { Suggestion } from '@/types';
 import { businessesInsertSchema } from '@/zodschema';
 
-interface FormFieldsInterface {
-  fieldName: string;
-  fieldLabel: string;
-  fieldDesc: string;
-}
-
-const formFields: FormFieldsInterface[] = [
+const formFields = [
   { fieldName: 'name', fieldLabel: 'Name', fieldDesc: 'Name of the business' },
   { fieldName: 'type', fieldLabel: 'Type', fieldDesc: 'Type of business' },
   {
@@ -95,7 +89,7 @@ const CreateBusinessForm = ({ place, setPlace, handleSubmitCreate }: props) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className='space-y-8'
       >
-        {formFields.map((f: any) => (
+        {formFields.map((f) => (
           <FormField
             key={f.fieldName}
             control={form.control}

@@ -28,6 +28,12 @@ export const businessesRowSchema = z.object({
   zipcode: z.string(),
 });
 
+export const formFieldsSchema = z.object({
+  fieldName: z.string(),
+  fieldLabel: z.string(),
+  fieldDesc: z.string(),
+})
+
 export const businessesInsertSchema = z.object({
   city: z.string().min(2).max(25),
   gps_lat: z.number().optional(),
