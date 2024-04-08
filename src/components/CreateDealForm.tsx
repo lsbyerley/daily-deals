@@ -27,14 +27,6 @@ import { Business } from '@/types';
 import { dealsInsertSchema } from '@/zodschema';
 import { useState } from 'react';
 
-interface FormConfig {
-  fieldType?: string;
-  fieldName: any; //TODO: setting this as string breaks FormField name?
-  fieldLabel: string;
-  fieldDesc: string;
-  fieldOptions?: { option: string; value: string | number }[];
-}
-
 interface props {
   businesses: Business[] | null;
   createDeal: Function;
@@ -79,7 +71,7 @@ const CreateDealForm = ({ businesses, createDeal }: props) => {
     { option: 'Sunday', value: 'Sunday' },
   ];
 
-  const formFields: FormConfig[] = [
+  const formFields = [
     {
       fieldName: 'business',
       fieldLabel: 'Business',
@@ -171,7 +163,7 @@ const CreateDealForm = ({ businesses, createDeal }: props) => {
         className='space-y-8'
       >
         <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
-        {formFields.map((config: FormConfig) => (
+        {formFields.map((config) => (
           <div className='w-full' key={config.fieldName}>
             <FormField
             key={config.fieldName}
