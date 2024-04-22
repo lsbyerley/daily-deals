@@ -22,7 +22,7 @@ export const useLocationStore = create<LocationState>((set) => ({
       selectedRegion: region,
     }));
   },
-  selectedCountry: 'all',
+  selectedCountry: 'us',
   changeCountry: (country) => {
     return set(() => ({
       selectedCountry: country,

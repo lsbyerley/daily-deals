@@ -5,12 +5,12 @@ import DealModule from '@/components/DealModule';
 import LocationDialog from '@/components/LocationDialog';
 
 import type { Database } from '@/db_types';
-import { CityPageProps } from '@/types';
+import { CityDeprecatedPageProps } from '@/types';
 import { normalizeGeo } from '@/lib/utils';
 
 export const dynamic = 'force-dynamic';
 
-export default async function CityPage({ params }: CityPageProps) {
+export default async function CityPage({ params }: CityDeprecatedPageProps) {
   const geo = params?.geo[0];
   if (!geo) {
     redirect('/');

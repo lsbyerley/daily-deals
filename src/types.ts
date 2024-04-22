@@ -22,10 +22,20 @@ export interface DialogProps {
   usingDefaultGeo?: Boolean;
 }
 
-export interface CityPageProps {
+export interface CityDeprecatedPageProps {
   params: {
     geo: string;
   };
+}
+
+export interface GeoObj {
+  city: string
+  region: string
+  country: string
+}
+
+export interface CityPageProps {
+  params: GeoObj
 }
 
 export interface DealWithBusiness extends Deal {

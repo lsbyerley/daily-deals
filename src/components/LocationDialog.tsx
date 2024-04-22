@@ -20,7 +20,7 @@ export default function LocationDialog(props: DialogProps) {
 
   const handleSelectPlace = (props: Suggestion) => {
     const geo = normalizeGeoFromMB(props);
-    router.push(`/city/${geo.city}, ${geo.region}, ${geo.country}`);
+    router.push(`/city/${geo.city}/${geo.region}/${geo.country}`);
   };
 
   return (
