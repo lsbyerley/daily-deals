@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge';
 import { isAfter, isBefore } from 'date-fns';
 import { format } from 'date-fns-tz';
 
-import { DealWithBusiness, Suggestion } from '@/types';
+import { DealWithBusiness, Suggestion, GeoObj } from '@/types';
 
 export const getURL = () => {
   let url =
@@ -60,6 +60,31 @@ export function normalizeGeoFromMB(geo: Suggestion) {
     city,
     region,
     country,
+  };
+}
+
+// Normalizes a geo params object
+export function buildGeoFromParams(params: GeoObj) {
+  let usingDefaultGeo = false;
+  let city = decodeURI(params?.city).replaceAll('%2C', ',');
+  const region = params?.region?.toUpperCase().trim();
+  const country = params?.country.toUpperCase().trim();
+
+  if (city.split(' ').length > 1) {
+    let cs = '';
+    city.split(' ').forEach((c: string) => {
+      cs += capitalizeFirst(c) + ' ';
+    });
+    city = cs.trim();
+  } else {
+    city = capitalizeFirst(city);
+  }
+
+  return {
+    city,
+    region,
+    country,
+    usingDefaultGeo,
   };
 }
 
