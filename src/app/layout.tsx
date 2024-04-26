@@ -10,7 +10,8 @@ import { Analytics } from '@vercel/analytics/react';
 import { cookies } from 'next/headers';
 import { createClient } from '@/utils/supabase/server'
 import Loading from './loading';
-
+import { LocationStoreProvider } from '@/providers/LocationStoreProvider';
+import HydrateStore from '@/components/HydrateStore';
 
 export const metadata = {
   title: 'Daily Deals',
@@ -39,12 +40,15 @@ export default async function RootLayout({
     <html lang='en' suppressHydrationWarning>
       <body>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-          <Suspense fallback={<Loading />} />
-          <Header user={user} profile={profile} />
-          <main className='min-h-screen flex flex-col items-center'>
-            {children}
-          </main>
-          <Footer />
+          <LocationStoreProvider>
+            <HydrateStore />
+            <Suspense fallback={<Loading />} />
+            <Header user={user} profile={profile} />
+            <main className='min-h-screen flex flex-col items-center'>
+              {children}
+            </main>
+            <Footer />
+          </LocationStoreProvider>
         </ThemeProvider>
         <Analytics />
       </body>

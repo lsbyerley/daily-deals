@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import LogoutButton from '@/components/LogoutButton';
+import CountrySelect from '@/components/CountrySelect';
 import { ModeToggle } from './ModeToggle';
 import { Profile } from '@/types';
 import { User } from '@supabase/supabase-js';
@@ -9,12 +10,10 @@ import { Menu, CalendarDays } from 'lucide-react';
 import {
   NavigationMenu,
   NavigationMenuContent,
-  // NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  // NavigationMenuViewport,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 import clsx from 'clsx';
@@ -38,6 +37,7 @@ export default function Header(props: HeaderProps) {
           </h2>
         </div>
       </Link>
+      <CountrySelect />
       <div className='ml-auto flex w-full justify-end'>
         <NavigationMenu className='mr-4'>
           <NavigationMenuList>

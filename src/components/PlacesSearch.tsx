@@ -4,17 +4,20 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import usePlacesSearch from '@/app/hooks/usePlacesSearch';
 import { Suggestion } from '@/types';
+import { useLocationStore } from '@/providers/LocationStoreProvider';
 
 interface props {
   types?: string
   onPlaceSelect?: Function
   searchPlaceholder?: string
+  // country: string
 }
 
 const token = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || 'na'
 
-export default function PlacesSearch({ types, onPlaceSelect, searchPlaceholder }: props) {
-  const places = usePlacesSearch({ initialValue: '', token, types });
+const PlacesSearch = ({ types, onPlaceSelect, searchPlaceholder }: props) => {
+  const [{ selectedCountry }] = useLocationStore((state) => state);
+  const places = usePlacesSearch({ initialValue: '', token, types, country: selectedCountry });
 
   return (
     <div className='w-full'>
@@ -49,3 +52,5 @@ export default function PlacesSearch({ types, onPlaceSelect, searchPlaceholder }
     </div>
   );
 }
+
+export default PlacesSearch;
