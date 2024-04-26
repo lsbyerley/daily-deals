@@ -8,17 +8,17 @@ export type Role = Database['public']['Tables']['roles']['Row'];
 export interface IndexPageProps {
   params: Object;
   searchParams: {
-    city: String;
-    region: String;
-    country: String;
+    city: string;
+    region: string;
+    country: string;
     usingDefaultGeo: Boolean;
   };
 }
 
 export interface DialogProps {
-  city?: String;
-  region?: String;
-  country?: String;
+  city?: string;
+  region?: string;
+  country?: string;
   usingDefaultGeo?: Boolean;
 }
 
