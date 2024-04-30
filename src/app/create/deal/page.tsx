@@ -47,7 +47,7 @@ export default async function CreateDeal() {
       return { message: `Deal Creation Failed ${error}` }
     }
 
-    return redirect('/create/deal/success');
+    redirect('/create/deal/success');
   };
 
   return (

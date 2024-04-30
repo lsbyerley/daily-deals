@@ -50,7 +50,7 @@ const DealCard = (deal: DealWithBusiness) => {
         )}
       </CardHeader>
       <CardContent>
-        <div className='prose text-foreground'>
+        <div className='prose text-foreground prose-a:text-blue-600'>
           <ReactMarkdown children={description} rehypePlugins={[remarkGfm]} />
         </div>
       </CardContent>

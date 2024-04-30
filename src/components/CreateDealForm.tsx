@@ -62,6 +62,7 @@ const CreateDealForm = ({ businesses, createDeal }: props) => {
     { option: 'Food and Drink', value: 'food,drink' },
   ];
   const dayOptions = [
+    { option: 'Everyday', value: 'Everyday' },
     { option: 'Monday', value: 'Monday' },
     { option: 'Tuesday', value: 'Tuesday' },
     { option: 'Wednesday', value: 'Wednesday' },

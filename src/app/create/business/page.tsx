@@ -44,7 +44,7 @@ export default async function CreateBusiness() {
       return { message: `Business Creation Failed: ${error}` }
     }
 
-    return redirect('/create/business/success');
+    redirect('/create/business/success');
   };
 
   return (
