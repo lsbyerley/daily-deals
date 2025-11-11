@@ -2,13 +2,13 @@
 import { z } from "zod";
 import { Json } from "./db_types";
 
-export const jsonSchema: z.ZodSchema<Json> = z.lazy(() =>
+export const jsonSchema: z.ZodJSONSchema<Json> = z.lazy(() =>
   z
     .union([
       z.string(),
       z.number(),
       z.boolean(),
-      z.record(z.union([jsonSchema, z.undefined()])),
+      z.record(z.string(), z.union([jsonSchema, z.undefined()])),
       z.array(jsonSchema),
     ])
     .nullable()
@@ -42,7 +42,7 @@ export const businessesInsertSchema = z.object({
   region: z.string().min(2).max(25),
   street: z.string().min(2).max(50),
   type: z.string().min(2).max(25),
-  website: z.string().url().or(z.literal('')),
+  website: z.url().or(z.literal('')),
   zipcode: z.string().min(5).max(5),
 });
 
